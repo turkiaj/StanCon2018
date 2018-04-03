@@ -16,6 +16,7 @@ Main body of the presentation is found here as fully functional RMarkdown notebo
 -   population\_graph.htm : HTML document for graph visualization
 -   biblio.bib : References for the notebook in BibLatex format
 -   data-folder: The dataset that is used in the notebook analysis
+-   Data description.xlsx : Excel file that describes the metadata for analyzed dataset
 -   mebn-folder: The R-code for constructing MEBN and stan-model definitions
 -   visualization-folder: JavaScript code for graph visualization
 -   models-folder: Sampled Stan-models are cached in this folder once the notebook is executed. It is empty by default.
