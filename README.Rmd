@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This work proposes Mixed-Effect Bayesian Network (MEBN) as a method for modeling the effects of nutrition. It allows to identify both typical and personal correlations between nutrients and their bodily responses. Predicting a personal network of nutritional reactions would allow interesting applications at personal diets and in understanding this complex system. Brief theory of MEBN is given followed by implementation in R and Stan. A real life dataset from a nutritional Sysdimet study is then analyzed with the method and the results are visualized with an interactive JavaScript-visualization.
 
-[Open HTML-version of the notebook here](http://htmlpreview.github.io/?https://github.com/turkiaj/StanCon2018/blob/master/PersonalEffectsOfNutrition.html)
+[View HTML-version of the notebook here](http://htmlpreview.github.io/?https://github.com/turkiaj/StanCon2018/blob/master/PersonalEffectsOfNutrition.html)
 
 
 ## Contents
