@@ -21,6 +21,11 @@ Main body of the presentation is found here as fully functional RMarkdown notebo
 -   visualization-folder: JavaScript code for graph visualization
 -   models-folder: Sampled Stan-models are cached in this folder once the notebook is executed. It is empty by default.
 
+License
+-------
+
+Material in this repository is licensed under CC 4.0 <https://creativecommons.org/licenses/by/4.0/>
+
 Requirements
 ------------
 
