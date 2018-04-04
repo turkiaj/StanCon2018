@@ -83,7 +83,7 @@ and for Bayesian estimation we assume _hyper-Markov law_ [@dawid1993] for ensure
 
 <center>
 
-```{r, echo=FALSE, message=FALSE}
+```{r, out.width = "600px", echo=FALSE, message=FALSE}
 include_graphics("PGM.png", auto_pdf=TRUE)
 ```
 
