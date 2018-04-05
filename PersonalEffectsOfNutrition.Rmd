@@ -4,8 +4,8 @@ author:
   - Jari Turkia, jari.turkia@cgi.com 
   - CGI, University of Eastern Finland
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 bibliography: biblio.bib
 abstract: "This work proposes Mixed-Effect Bayesian Network (MEBN) as a method for modeling the effects of nutrition. It allows to identify both typical and personal correlations between nutrients and their bodily responses. Predicting a personal network of nutritional reactions would allow interesting applications at personal diets and in understanding this complex system. Brief theory of MEBN is given followed by implementation in R and Stan. A real life dataset from a nutritional Sysdimet study is then analyzed with the method and the results are visualized with an interactive JavaScript-visualization."
 ---
@@ -54,8 +54,10 @@ Now the problem is converted into a search of the maximum likelihood graph for g
 Likelihood of the data is then
 
 \begin{align}
+\begin{split}
 \label{likelihood}
-{P}({D}|{G}) = \prod_{i=1}^{v} {P(X_i|pa(X_i), \phi_i, G_i)P(\phi_i|G_i)}  
+{P}({D}|{G}) \\ = \prod_{i=1}^{v} {P(X_i|pa(X_i), \phi_i, G_i)P(\phi_i|G_i)}  
+\end{split}
 \end{align}
 
 assuming we have \(v\) independent local distributions at the graph. The notation $pa(X_i)$ denotes the parent variables of variable $X_i$ according to graph structure $G_i$. Since the probability of data in the graph depends on the parameters of the local distributions, \(\phi_i\), they have to be integrated out from the equation to make the probability of graph independent of any specific choice of parameters 
@@ -63,9 +65,8 @@ assuming we have \(v\) independent local distributions at the graph. The notatio
 \begin{align}
 \begin{split}
 \label{joint_probability}
-\prod_{i=1}^{v} \int {P(X_i|pa(X_i), \phi_i, G_i)P(\phi_i|G_i)} d\phi_i = 
-\prod_{i=1}^{v} {P(X_i|pa(X_i), G_i)P(G_i)} = 
-{P}({D}|{G})
+\prod_{i=1}^{v} \int {P(X_i|pa(X_i), \phi_i, G_i)P(\phi_i|G_i)} d\phi_i \\
+= \prod_{i=1}^{v} {P(X_i|pa(X_i), G_i)P(G_i)} 
 \end{split}
 \end{align}
 
@@ -93,8 +94,10 @@ include_graphics("PGM.png", auto_pdf=TRUE)
 Generally, the local probability distributions can be from exponential family of distributions, but in this example we consider only normally distributed response variables. Subset of parent nodes possibly containing personal variance is denoted with $pa_Z(X_i)$. For mixed-effect modeling we assume parameters \(\phi_i = \{\beta_i, b_i\}\) for expressing typical and personal reaction types. In multivariate normal model the uncertainty is furthermore defined by variance-covariance matrix $V_i$
 
 \begin{align}
+\begin{split}
 \label{Normal LME}
-{P}({X_i}|{pa(X_i), \phi_i}) = N({X_i} | pa(X_i)\beta_i + pa_Z(X_i)b_i, V_i)
+{P}({X_i}|{pa(X_i), \phi_i, G_i}) \\ = N({X_i} | pa(X_i)\beta_i + pa_Z(X_i)b_i, V_i)
+\end{split}
 \end{align}
 
 This theory motivates our search for optimal graph with Stan. By decomposing the joint likelihood into local probability distributions according to Markov properties it is possible to find the optimal graph by estimating one local distributions one by one.
@@ -266,7 +269,7 @@ graph_string <- paste(readLines(gexf_file), collapse = "")
 
 <!-- the graph is drawn in this container. variable 'sysdimet_graph' is hard coded to contain the gexf-string -->
 <div id="sigmacontainer"></div>
-<!-- ![](visualization.png) -->
+![](visualization.png)
 
 ```{r, echo=FALSE, message=FALSE}
 # Load the graph drawing JavaScript
