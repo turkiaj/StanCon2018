@@ -269,7 +269,7 @@ graph_string <- paste(readLines(gexf_file), collapse = "")
 
 <!-- the graph is drawn in this container. variable 'sysdimet_graph' is hard coded to contain the gexf-string -->
 <div id="sigmacontainer"></div>
-![](visualization.png)
+<!-- ![](visualization.png) -->
 
 ```{r, echo=FALSE, message=FALSE}
 # Load the graph drawing JavaScript
