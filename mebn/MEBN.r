@@ -441,8 +441,8 @@ mebn.sampling <- function(inputdata, predictor_columns, target_column, group_col
   require(rstan)
   
   # Run Stan parallel on multiple cores
-  rstan_options (auto_write=TRUE)
-  options (mc.cores=parallel::detectCores ()) 
+  rstan_options(auto_write=TRUE)
+  options(mc.cores=parallel::detectCores()) 
   
   target_name <- as.vector(target_column$Name)
 
