@@ -173,16 +173,6 @@ mebn.set_model_parameters <- function(predictor_columns, target_column, group_co
     Y <- inputdata[target_name][,]
   }
 
-  reg_params <- within(list(),
-                       {
-                         scale_icept  <- 1    # prior std for the intercept
-                         scale_global <- 0.01470   # scale for the half -t prior for tau: (p0=5) / (D=22-5)*sqrt(n=400)
-                         nu_global    <- 1    # degrees of freedom for the half -t priors for tau
-                         nu_local     <- 1    # degrees of freedom for the half -t priors for lambdas
-                         slab_scale   <- 1    # slab scale for the regularized horseshoe
-                         slab_df      <- 1    # slab degrees of freedom for the regularized horseshoe                     
-                       })
-  
   params <- within(list(),
                    {
                      N <- N
