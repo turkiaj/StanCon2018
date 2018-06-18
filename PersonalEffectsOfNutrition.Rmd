@@ -292,7 +292,9 @@ graph_string <- paste(readLines(gexf_file), collapse = "")
 
 <!-- the graph is drawn in this container. variable 'sysdimet_graph' is hard coded to contain the gexf-string -->
 <div id="sigmacontainer"></div>
-![Visualization of the typical reaction graph with edge thickness and color indicating the level of effect (beta coefficient). Grey shade at the edge indicates the amount of variance between personal effects (sigma_b). Notice that less significant connections have been filtered out for clarity.](visualization.png)
+<!--![](visualization.png)-->
+
+Figure 2: Visualization of the typical reaction graph with edge thickness and color indicating the level of effect (beta coefficient). Grey shade at the edge indicates the amount of variance between personal effects (sigma_b). Notice that less significant connections have been filtered out for clarity.
 
 ```{r, echo=FALSE, message=FALSE}
 # Load the graph drawing JavaScript
