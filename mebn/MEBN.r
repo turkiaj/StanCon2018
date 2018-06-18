@@ -7,7 +7,7 @@
 
 mebn.load_datadesc <- function(DataDescriptionFile = "Data description.xlsx")
 {
-  require(xlsx)    
+  library(xlsx)    
     
   # Read data description
   datadesc <- read.xlsx(DataDescriptionFile,sheetIndex=1,header=TRUE,rowIndex=c(1:50),colIndex=c(1:9))
@@ -19,7 +19,7 @@ mebn.load_datadesc <- function(DataDescriptionFile = "Data description.xlsx")
 
 mebn.new_graph_with_randomvariables <- function(datadesc)
 {
-  require(igraph)  
+  library(igraph)  
 
   # Initialize graph structure
   reaction_graph <- make_empty_graph() 
@@ -157,12 +157,6 @@ mebn.set_model_parameters <- function(predictor_columns, target_column, group_co
     
     # append intercept 
     X <- cbind(rep(1,N), X)
-    
-    # dirty fix - works only for sysdimet data
-    #X[,2] <- as.vector(predictors[,1])
-    #X[,3] <- as.vector(predictors[,2])
-    
-    #print(X)
     
     # TODO: condscale Y, too
     Y <- scale(inputdata[target_name][,], center = FALSE, scale = TRUE)[,1]
@@ -688,11 +682,11 @@ mebn.write_gexf <- function(reaction_graph, gexf_path = "C:\\projects\\Responses
   nodeviz <- list(color = MakeRGBA(V(reaction_graph)$color, 1.0), size = V(reaction_graph)$size, shape = V(reaction_graph)$shape)
   edgeviz <- list(shape = E(reaction_graph)$shape)
   
-  edgesatt <- data.frame(E(reaction_graph)$mean, E(reaction_graph)$l95CI, E(reaction_graph)$u95CI)
+  edgesatt <- data.frame(E(reaction_graph)$mean, E(reaction_graph)$l95CI, E(reaction_graph)$u95CI, E(reaction_graph)$b_sigma)
   
-  if (length(edgesatt) == 3)
+  if (length(edgesatt) == 4)
   {
-    colnames(edgesatt) <- c("mean", "l95CI", "u95CI")
+    colnames(edgesatt) <- c("mean", "l95CI", "u95CI", "b_sigma")
   }
   
   nodesatt <- data.frame(V(reaction_graph)$mean, V(reaction_graph)$l95CI, V(reaction_graph)$u95CI, V(reaction_graph)$scalemin, V(reaction_graph)$scalemax)
@@ -768,6 +762,7 @@ mebn.typical_graph <- function(reaction_graph, inputdata, predictor_columns, ass
         # Attach the random variable
         reaction_graph <- reaction_graph + edge(c(predictor_name, target_name), 
                                                 weight = localsummary$fixef[p], 
+                                                b_sigma = localsummary$ranef_sd[p+1],
                                                 shape   = "confband", 
                                                 mean   = localsummary$fixef[p],
                                                 l95CI  = localsummary$fixef[p] - localsummary$ranef_sd[p+1]/2,
