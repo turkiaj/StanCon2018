@@ -6,9 +6,9 @@ author:
 - University of Eastern Finland
 bibliography: biblio.bib
 output:
-  pdf_document: default
-  word_document: default
   html_document: default
+  word_document: default
+  pdf_document: default
 abstract: This work proposes Mixed-Effect Bayesian Network (MEBN) as a method for
   modeling the effects of nutrition. It allows identifying both typical and personal
   correlations between nutrients and their bodily responses. Predicting a personal
@@ -271,9 +271,9 @@ sysdimet_visgraph <- mebn.visualization_graph(sysdimet_graph)
 
 # Filter only the most significant edges having large typical effect or large personal variance
 alledges <- E(sysdimet_visgraph)
-top_neg_edges <- head(alledges[order(alledges$weight)], 10)
-top_pos_edges <- head(alledges[order(-alledges$weight)], 10)
-top_pers_edges <- head(alledges[order(-alledges$b_sigma)], 10)
+top_neg_edges <- head(alledges[order(alledges$weight)], 15)
+top_pos_edges <- head(alledges[order(-alledges$weight)], 15)
+top_pers_edges <- head(alledges[order(-alledges$b_sigma)], 15)
 
 # Comment out this row to see all the connections at the model
 sysdimet_visgraph <- delete.edges(sysdimet_visgraph, alledges[-c(top_neg_edges, top_pos_edges, top_pers_edges)])
