@@ -23,6 +23,8 @@ abstract: This work proposes Mixed-Effect Bayesian Network (MEBN) as a method fo
 library(knitr)
 knitr::opts_chunk$set(echo = TRUE, fig.align="center")
 
+Sys.setenv(TZ="Europe/Helsinki")
+
 # Load common MEBN package
 source("mebn\\MEBN.r")
 ```
