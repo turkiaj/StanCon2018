@@ -6,9 +6,9 @@ author:
 - University of Eastern Finland
 bibliography: biblio.bib
 output:
-  html_document: default
-  word_document: default
   pdf_document: default
+  word_document: default
+  html_document: default
 abstract: This work proposes Mixed-Effect Bayesian Network (MEBN) as a method for
   modeling the effects of nutrition. It allows identifying both typical and personal
   correlations between nutrients and their bodily responses. Predicting a personal
@@ -93,7 +93,7 @@ and for the Bayesian estimation we assume _hyper-Markov law_ [@dawid1993] for en
 
 <center>
 
-```{r, out.width = "600px", echo=FALSE, message=FALSE, fig.cap="Figure 1: This is an example MEBN as a graphical model. The grey nodes are the observed variables of nutrients (N) and blood tests (B). The white beta and b nodes are the latent nodes to be estimated. Red, blue and dark grey correspond to the colors used in the visualization at figure 2."}
+```{r, out.width = "600px", echo=FALSE, message=FALSE, fig.cap="This is an example MEBN as a graphical model. The grey nodes are the observed variables of nutrients (N) and blood tests (B). The white beta and b nodes are the latent nodes to be estimated. Red, blue and dark grey correspond to the colors used in the visualization at figure 2."}
 include_graphics("PGM.png", auto_pdf=TRUE)
 ```
 
@@ -292,9 +292,7 @@ graph_string <- paste(readLines(gexf_file), collapse = "")
 
 <!-- the graph is drawn in this container. variable 'sysdimet_graph' is hard coded to contain the gexf-string -->
 <div id="sigmacontainer"></div>
-<!--![](visualization.png)-->
-
-Figure 2: Visualization of the typical reaction graph with edge thickness and color indicating the level of effect (beta coefficient). Grey shade at the edge indicates the amount of variance between personal effects (sigma_b). Notice that less significant connections have been filtered out for clarity.
+![Visualization of the typical reaction graph with edge thickness and color indicating the level of effect (beta coefficient). Grey shade at the edge indicates the amount of variance between personal effects (sigma_b). Notice that less significant connections have been filtered out for clarity.](visualization.png)
 
 ```{r, echo=FALSE, message=FALSE}
 # Load the graph drawing JavaScript
@@ -323,7 +321,7 @@ typical_effects<-data.frame(matrix(NA, nrow=length(beta), ncol=0))
 typical_effects$effect <- unlist(lapply(strsplit(gsub("beta_","", beta$name), "_"), function(x) paste0(toString(datadesc[datadesc$Name==x[1],]$Description)," -> ", toString(datadesc[datadesc$Name==x[2],]$Description))))
 
 # - sort most positive and negative values
-typical_effects$value <- beta$value
+typical_effects$value <- round(beta$value,3)
 largest_typical_negative <- typical_effects[order(typical_effects$value),]
 largest_typical_positive <- typical_effects[order(-typical_effects$value),]
 ```
@@ -353,7 +351,7 @@ personal_variances<-data.frame(matrix(NA, nrow=length(b_sigma), ncol=0))
 
 personal_variances$effect <- unlist(lapply(strsplit(gsub("b_sigma_","", b_sigma$name), "_"), function(x) paste0(toString(datadesc[datadesc$Name==x[1],]$Description)," -> ", toString(datadesc[datadesc$Name==x[2],]$Description))))
 
-personal_variances$variance <- b_sigma$value
+personal_variances$variance <- round(b_sigma$value,3)
 largest_personal_variance <- personal_variances[order(-personal_variances$variance),]
 ```
 
